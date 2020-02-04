@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuncosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajuncosa <ajuncosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:01:13 by ajuncosa          #+#    #+#             */
-/*   Updated: 2020/01/31 19:50:33 by ajuncosa         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:11:46 by ajuncosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* 1: Se ha leído una línea
- * 0: Se ha terminado la lectura
- * -1: Ha ocurrido un error
- */
-
 #include "get_next_line.h"
+
+
 
 int get_next_line(int fd, char **line)
 {
@@ -64,19 +61,23 @@ int get_next_line(int fd, char **line)
 			}
 		}
 	}
-	free(stat);
-	return (0);
-}
-int main()
-{
-	char *line;
-	int fd = open("hola", O_RDONLY);
-	int i = 1;
-	while (i == 1)
+	if (stat[i] == '\0')
 	{
-		i = get_next_line(fd, &line);
-		printf("%s -> return: %d\n", line, i);
-		free(line);
+		/* si el archivo hubiese estado vacío, stat habría tenido solo 		*/
+		/* un '\0', i sería igual a 0 y el substr a continuación retornará 	*/
+		/* un strdup de un string vacío, por eso no me hace falta comprobar */
+		/* antes si el archivo tiene algo 									*/
+		if (!(*line = ft_substr(stat, 0, i)))
+			return (-1);
 	}
-	close(fd);
+	free(stat);
+	stat = NULL;
+	/* si no pones = NULL, stat se queda siendo un puntero al sitio donde 			*/
+	/* estaba el malloc (es decir que dentro tiene la dirección de ese sitio) 		*/
+	/* y como es static, al pasar los tests cuando vuelve a llamar a la 			*/
+	/* función pero con otro archivo distinto, la stat existe pero sigue apuntando 	*/
+	/* a un sitio que no está alocado, que va a tener memoria random. Para 			*/
+	/* los casos que no está vacío el archivo no pasa nada porque se vuelve a 		*/
+	/* alocar, pero en el vacío pasa directamente a abajo 							*/
+	return (0);
 }

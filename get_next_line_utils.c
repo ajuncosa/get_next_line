@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuncosa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ajuncosa <ajuncosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:32:34 by ajuncosa          #+#    #+#             */
-/*   Updated: 2020/01/31 16:53:16 by ajuncosa         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:46:04 by ajuncosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,12 @@ size_t	ft_strlen(const char *s)
 char	*ft_strdup(const char *s1)
 {
 	size_t	i;
-	size_t	len;
 	char	*copy;
 
-	len = 0;
-	while (s1[len] != '\0')
-		len++;
-	if (!(copy = malloc(len + 1)))
+	if (!(copy = malloc((ft_strlen(s1) + 1))))
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < ft_strlen(s1))
 	{
 		copy[i] = s1[i];
 		i++;
