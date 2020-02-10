@@ -3,7 +3,7 @@
 int main()
 {
 	char *line;
-	int fd = open("adios", O_RDONLY);
+	int fd = open("long_line.txt", O_RDONLY);
 	int fd2 = open("hola", O_RDONLY);
 	int i = 1;
 	while (i == 1)

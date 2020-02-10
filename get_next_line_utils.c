@@ -6,7 +6,7 @@
 /*   By: ajuncosa <ajuncosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:32:34 by ajuncosa          #+#    #+#             */
-/*   Updated: 2020/02/10 11:57:16 by ajuncosa         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:13:38 by ajuncosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (new);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr_edit(const char *s, int c)
 {
 	int		i;
-	char	*copy;
 
 	i = 0;
-	copy = (char *)s;
 	while (s[i] != '\0')
 	{
 		if (s[i] == c)
-			return (&copy[i]);
+			return (i);
 		i++;
 	}
-	if (s[i] == c)
-		return (&copy[i]);
-	else
-		return (0);
+	return (-1);
 }

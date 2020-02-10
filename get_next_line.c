@@ -6,7 +6,7 @@
 /*   By: ajuncosa <ajuncosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:01:13 by ajuncosa          #+#    #+#             */
-/*   Updated: 2020/02/10 13:02:29 by ajuncosa         ###   ########.fr       */
+/*   Updated: 2020/02/10 15:07:27 by ajuncosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 int	ft_complete_the_line(int fd, char **stat, char **line)
 {
-	size_t	i;
+	int	i;
 
 	if (stat[fd])
 	{
-		i = 0;
-		while (stat[fd][i] != '\n' && stat[fd][i] != '\0')
-			i++;
-		if (stat[fd][i] == '\n')
+		i = ft_strchr_edit(stat[fd], '\n');
+		if (i != -1)
 		{
 			*line = ft_substr(stat[fd], 0, i);
 			stat[fd] = ft_substr(stat[fd], i + 1, ft_strlen(stat[fd]) - i);
 			return (1);
 		}
-		if (stat[fd][i] == '\0')
-			*line = ft_substr(stat[fd], 0, i);
+		else
+			*line = ft_substr(stat[fd], 0, ft_strlen(stat[fd]));
 		free(stat[fd]);
 		stat[fd] = NULL;
 	}
@@ -47,7 +45,7 @@ int	get_next_line(int fd, char **line)
 	if (fd == -1 || !line || !(buf = malloc(BUFFER_SIZE + 1)) ||
 			read(fd, buf, 0) == -1 || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!stat[fd] || !ft_strchr(stat[fd], '\n'))
+	if (!stat[fd] || ft_strchr_edit(stat[fd], '\n') == -1)
 	{
 		while ((bytes = read(fd, buf, BUFFER_SIZE)) > 0)
 		{
@@ -56,7 +54,7 @@ int	get_next_line(int fd, char **line)
 				stat[fd] = ft_strdup(buf);
 			else
 				stat[fd] = ft_strjoin(stat[fd], buf);
-			if (ft_strchr(stat[fd], '\n'))
+			if (ft_strchr_edit(stat[fd], '\n') != -1)
 				break ;
 		}
 	}
