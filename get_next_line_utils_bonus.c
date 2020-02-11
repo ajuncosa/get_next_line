@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuncosa <ajuncosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajuncosa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/22 14:32:34 by ajuncosa          #+#    #+#             */
-/*   Updated: 2020/02/11 10:43:47 by ajuncosa         ###   ########.fr       */
+/*   Created: 2020/02/11 11:15:38 by ajuncosa          #+#    #+#             */
+/*   Updated: 2020/02/11 11:15:48 by ajuncosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -30,7 +30,7 @@ char	*ft_strdup(const char *s1)
 	if (!(copy = malloc((ft_strlen(s1) + 1))))
 		return (NULL);
 	i = 0;
-	while (i < ft_strlen(s1))
+	while (s1[i] != '\0')
 	{
 		copy[i] = s1[i];
 		i++;
@@ -51,7 +51,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	i = 0;
 	j = 0;
-	
 	while (s1[j] != '\0')
 	{
 		new[i] = s1[j];
@@ -95,7 +94,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (new);
 }
 
-int	ft_strchr_edit(const char *s, int c)
+int		ft_strchr_edit(const char *s, int c)
 {
 	int		i;
 
